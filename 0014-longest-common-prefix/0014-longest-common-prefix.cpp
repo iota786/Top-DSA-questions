@@ -16,7 +16,8 @@ public:
             {
                 s+=strs[0][i]; flag=false;
             }
-            }
+            
+        }
             
             
             
