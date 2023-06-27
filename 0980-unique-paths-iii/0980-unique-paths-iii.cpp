@@ -1,32 +1,37 @@
 class Solution {
-    int M, N, eCount=1, res=0;
 public:
-    int uniquePathsIII(vector<vector<int>>& grid) {
-        M = grid.size(), N=grid[0].size();
-        int x, y;
-        for (int i=0; i < M; i++)
-            for (int j=0; j<N; j++){
-                if (grid[i][j] ==1) x= i, y=j;
-                else if (grid[i][j] ==0) eCount++;
-            }
-
-        DFS(grid, x,y,0);
-        return res;        
-    }
-
-    void DFS(vector<vector<int>>& g, int i, int j,int count){
-        if ( i < 0 || i >= M ||  j < 0 || j >= N || g[i][j] == -1) return;
-
-        if(g[i][j] == 2){
-            if (count == eCount) res++;
-            return;
+    int f(int i,int j,int c,int& empty,vector<vector<int>>& grid,vector<vector<vector<int>>>& dp){
+        if(i<0 || j<0 || i>=grid.size() || j>=grid[0].size() || grid[i][j]==-1) return 0;        
+        if(grid[i][j]==2){
+            if(c==empty)
+                return 1;
+            return 0;
         }
-        g[i][j] = -1;
-        count++;
-        DFS(g,i+1,j,count);
-        DFS(g,i-1,j,count);
-        DFS(g,i,j+1,count);
-        DFS(g,i,j-1,count);
-        g[i][j] = 0;
+        if(dp[i][j][c]!=-1)return dp[i][j][c];
+        
+        grid[i][j]=-1;
+        int up=f(i-1,j,c+1,empty,grid,dp);
+        int down=f(i+1,j,c+1,empty,grid,dp);
+        int right=f(i,j+1,c+1,empty,grid,dp);
+        int left=f(i,j-1,c+1,empty,grid,dp);
+        grid[i][j]=0;
+        return dp[i][j][c+1]=(up+down+right+left);        
+        
+    }
+    
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        int i=0,j=0,empty=1,start_x=0,start_y=0;
+        for(i;i<grid.size();i++){
+            for(j=0;j<grid[0].size();j++){
+                if(grid[i][j]==1){
+                    start_x=i;
+                    start_y=j;                    
+                }
+                if(grid[i][j]==0)
+                    empty++;
+            }
+        }
+        vector<vector<vector<int>>> dp(grid.size(), vector<vector<int>> (grid[0].size(),vector<int> (empty+1,-1)));
+        return f(start_x,start_y,0,empty,grid,dp);
     }
 };
