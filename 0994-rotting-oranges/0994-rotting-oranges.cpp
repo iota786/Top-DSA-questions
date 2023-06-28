@@ -16,7 +16,7 @@ class Solution {
           if (grid[i][j] == 2) {
             q.push({{i, j}, 0}); 
             // mark as visited (rotten) in visited array
-            vis[i][j] = 2;
+            vis[i][j] = 1;
           }
           // if not rotten
           else {
@@ -52,7 +52,7 @@ class Solution {
             // push in queue with timer increased
              q.push({{nrow, ncol}, t + 1}); 
             // mark as rotten
-            vis[nrow][ncol] = 2;
+            vis[nrow][ncol] = 1;
             cnt++;
           }
         }
