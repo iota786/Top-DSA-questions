@@ -1,25 +1,34 @@
 class Solution {
 public:
-    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& n) {
-        intervals.push_back(n);
-        sort(intervals.begin(),intervals.end());
-         vector<vector<int>> ans;
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>> result;
+        int i=0;
+        bool flag=false;
+        int start=newInterval[0];;
+        int end=newInterval[1];
+// Insert all the intervals which are strictly lesser than the new Interval.
+        while(i<intervals.size() && intervals[i][1]<newInterval[0])
+        {
+            result.push_back(intervals[i]);
+            i++;
+        }
+// Overlapping intervals
+        while(i<intervals.size() && intervals[i][0]<=newInterval[1])
+        {
+            
+            start=min(intervals[i][0],start);
+            end=max(intervals[i][1],end);
+            i++;
+        }
+//Strictly Greater intervals
+        result.push_back({start,end});
+        while(i<intervals.size())
+        {
+            result.push_back(intervals[i]);
+            i++;
+        }
+       
+        return result;
         
-        int size = intervals.size();
-        //starting condition  
-		ans.push_back(intervals[0]);
-
-		for(int i = 1; i < size; ++i){
-            //previous ending time >= current starting time
-			if((ans.back())[1] >= intervals[i][0]){ 
-                //max ending time
-				ans.back()[1] = max(intervals[i][1], ans.back()[1]);
-			}
-            else{
-                //not overlapping  
-				ans.push_back(intervals[i]);
-			}
-		} 
-		return ans;
     }
 };
