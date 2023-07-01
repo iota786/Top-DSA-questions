@@ -7,7 +7,7 @@ public:
         while(l<h)
         {
           int  mid=(l+h)/2;
-            //if(nums[mid]==target) return mid;
+            //edge case low==mid==high eg 1001001 
             if(nums[l]==nums[mid] && nums[h]==nums[mid])
             {
                 l++,h--;
