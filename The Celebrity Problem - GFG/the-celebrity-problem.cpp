@@ -30,7 +30,7 @@ class Solution
             s.pop();
             if(knows(M,a,b))
             s.push(b);
-            else //if(knows(M,b,a))
+            else if(knows(M,b,a))
             s.push(a);
             
         }
