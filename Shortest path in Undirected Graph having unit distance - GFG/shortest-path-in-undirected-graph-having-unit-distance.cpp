@@ -8,18 +8,7 @@ using namespace std;
 // User function Template for C++
 class Solution {
  private:
-    void findShortestPath(vector<int>adj[],int V,int node,vector<int>&vis,vector<int>&dist){
-        vis[node] = 1;
-        for(auto adjNode:adj[node]){
-            if(dist[adjNode]>dist[node]+1)
-                dist[adjNode] = dist[node]+1;
-            if(!vis[adjNode]){
-                findShortestPath(adj,V,adjNode,vis,dist);
-            }
-        }
-        vis[node] = 0;
-    return;
-    }
+    
   public:
     vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
         vector<int>adj[N];
@@ -29,15 +18,25 @@ class Solution {
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
-        vector<int>vis(N,0);
-        vector<int>dist(N,INT_MAX);
+       // vector<int>vis(N,0);
+        vector<int>dist(N,1e9);
         dist[src] = 0;
-        findShortestPath(adj,N,src,vis,dist);
-        for(int i=0;i<N;i++){
-            if(dist[i]==INT_MAX){
-                dist[i] = -1;
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+        q.push({0,src});
+        while(!q.empty())
+        {
+            int node=q.top().second;
+            int dis=q.top().first;
+            q.pop();
+            for(auto &i:adj[node])
+            {
+                if(dist[i]>dis+1)
+                {q.push({dist[node]+1,i});
+                dist[i]=1+dist[node];}
             }
         }
+        for(auto &i:dist)
+        if(i==1e9) i=-1;
     return dist;
     }
 };
