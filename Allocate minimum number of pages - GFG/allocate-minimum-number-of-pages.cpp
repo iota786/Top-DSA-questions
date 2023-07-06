@@ -8,6 +8,9 @@ using namespace std;
 // } Driver Code Ends
 //User function template in C++
 
+// 
+//User function template in C++
+
 class Solution 
 {
     public:
@@ -32,16 +35,20 @@ class Solution
         if(m>n) return -1;
         long long low=*max_element(a,a+n);
         long long high=accumulate(a,a+n,0);
+        long long ans=0;
         while(low<=high)
         {
             long long mid=(high+low)/2;
-            if(ispossible(a,mid,n)>m) 
+           //cout<<mid<<endl;
+            //if(ispossible(a,mid,n)==m) 
+            //{ans=mid; high=mid-1;}
+           if(ispossible(a,mid,n)>m)
             low=mid+1;
             else 
-            high =mid-1;
+            {ans=mid,high =mid-1;}
             
         }
-        return low;
+        return ans;
     }
 };
 
