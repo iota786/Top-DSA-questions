@@ -1,6 +1,6 @@
 class Solution {
 public:
-   bool toposort(vector<vector<int>>&adj)
+  bool toposort(vector<vector<int>>&adj)
     {
 
     vector<int>indegrees(adj.size());
@@ -24,7 +24,7 @@ public:
 
           int node=q.front();
             q.pop();
-            //topo.push_back(node);
+           // topo.push_back(node);
              c++;
             for(auto &i:adj[node]){
                indegrees[i]--;
