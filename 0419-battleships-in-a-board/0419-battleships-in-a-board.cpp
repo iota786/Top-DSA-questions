@@ -5,9 +5,9 @@ private:
 		if((i >= 0) && (j >= 0) && (i < n) && (j < m) && adj[i][j] == 'X') {
 			adj[i][j] = '#';
 			dfs(i+1, j, adj);
-			dfs(i-1, j, adj);
+			//dfs(i-1, j, adj);
 			dfs(i, j+1, adj);
-			dfs(i, j-1, adj);
+			//dfs(i, j-1, adj);
 		}
 	}
 public:
