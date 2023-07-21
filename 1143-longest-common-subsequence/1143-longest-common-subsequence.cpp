@@ -11,7 +11,6 @@ public:
         int i=text1.size();
         int j=text2.size();
         vector<vector<int>>dp(i+1,vector<int>(j+1,-1));
-        
         return longest(i,j,text1,text2,dp);
     }
 };
