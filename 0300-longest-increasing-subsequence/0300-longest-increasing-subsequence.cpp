@@ -15,8 +15,15 @@ public:
         return dp[i][prev+1] =max(take,nott);
     }
     int lengthOfLIS(vector<int>& nums) { int n=nums.size();
-       vector< vector<int >>dp(n+1,vector<int>(n+1,-1));
-      return  lis(0,-1,nums,dp,n);
-        
+      vector<int>dp(n+1,1); int maxi=-1;
+   for(int i=0;i<n;i++)
+   {
+       for(int j=0;j<i;j++)
+       {    if(nums[i]>nums[j])
+           dp[i]=max(dp[i],1+dp[j]);
+       }
+       maxi=max(maxi,dp[i]);
+   }
+       return maxi ;
     }
 };
