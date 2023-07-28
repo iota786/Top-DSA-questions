@@ -5,7 +5,7 @@ public:
 	    int m = grid[0].size(); 
 	    // visited and distance matrix
 	    vector<vector<int>> vis(n, vector<int>(m, 0)); 
-	   // vector<vector<int>> dist(n, vector<int>(m, 0)); 
+	   
 	    // <coordinates, steps>
 	    queue<pair<pair<int,int>, int>> q; 
 	    // traverse the matrix
@@ -34,7 +34,7 @@ public:
 	        int col = q.front().first.second; 
 	        int steps = q.front().second; 
 	        q.pop(); 
-            if(row==entrance[0] && col == entrance[1]) 
+            if(row==entrance[0] && col == entrance[1]) // found the entrance
             {dist= steps; break;}
 	        // for all 4 neighbours
 	        for(int i = 0;i<4;i++) {
@@ -48,7 +48,7 @@ public:
 	            }
 	        }
 	    }
-	    // return distance matrix
+	    // return distance 
 	    return dist; 
 	 
     }
