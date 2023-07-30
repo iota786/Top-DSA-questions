@@ -12,7 +12,7 @@ class Solution {
         for(int i=n-1;i>=0;i--)
         {   if(s[i]=='0') dp[i]=0;
          else{
-            int res=dp[i+1]%m;
+            int res=dp[i+1];
             if(i<n-1  && (s[i]=='1'|| (s[i]=='2'&& s[i+1]<'7'))) res=(res%m+dp[i+2]%m)%m;
             dp[i]=res;}
         }
