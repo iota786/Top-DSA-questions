@@ -1,34 +1,31 @@
 class Solution {
 public:
-TreeNode *build(int start, int end, vector<int> &inorder){
-    if(start>end) return NULL;
-    int mid = start - (start-end)/2;
-
-    TreeNode *node = new TreeNode(inorder[mid]);
-
-    node->left = build(start, mid-1, inorder);
-    node->right = build(mid+1, end, inorder);
-    return node;
-}
     TreeNode* balanceBST(TreeNode* root) {
-        vector<int> inorder;
-        stack<TreeNode*> st;
-        TreeNode *node = root;
-        while(true){
-            if(node!=NULL){
-                st.push(node);
-                node = node->left;
-            }
-            else{
-                if(st.empty()) break;
-                node = st.top();
-                st.pop();
-                inorder.push_back(node->val);
-                node = node->right;
-            }
+         vector<int> sortedArray;
+         inorderTraversal(root, sortedArray);
+         return sortedArrayToBST(sortedArray, 0, sortedArray.size() - 1);
         }
-        TreeNode *ans = build(0, inorder.size()-1, inorder);
 
-        return ans;
+// Function to traverse the BST in an inorder manner and store elements in a sorted array
+    void inorderTraversal(TreeNode* root, vector<int>& sortedArray) {
+         if (root == nullptr) {
+               return;
+             }
+         inorderTraversal(root->left, sortedArray);
+         sortedArray.push_back(root->val);
+         inorderTraversal(root->right, sortedArray);
+    }
+
+// Function to convert a sorted array to a balanced BST
+    TreeNode* sortedArrayToBST(vector<int>& sortedArray, int left, int right) {
+         if (left > right) {
+               return nullptr;
+              }
+
+          int mid = left + (right - left) / 2;
+          TreeNode* root = new TreeNode(sortedArray[mid]);
+          root->left = sortedArrayToBST(sortedArray, left, mid - 1);
+          root->right = sortedArrayToBST(sortedArray, mid + 1, right);
+     return root;
     }
 };
